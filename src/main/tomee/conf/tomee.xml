@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<tomee>
+
+  <Resource id="${datasource.jndi}" type="DataSource">
+    JdbcDriver ${jdbc.driver}
+    JdbcUrl ${jdbc.url}
+    UserName ${jdbc.userName}
+    Password ${jdbc.password}
+    JtaManaged true
+  </Resource>
+
+</tomee>

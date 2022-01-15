@@ -1,7 +1,7 @@
 # Example REST application.
 
-This is the Java (backend) part of the application. The JavaScript (frontend) is located
-inside `src/main/tsx` directory. Follow the `README.md` file in that directory for
+This is the Java (backend) part of the application. The TypeScript (frontend) is located
+inside `src/frontend` directory. Follow the `README.md` file in that directory for
 information on how to set up the client.
 
 ### Requirements

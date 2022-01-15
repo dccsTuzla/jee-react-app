@@ -3,8 +3,8 @@
  *  Implemented 2022 by DCCS GmbH.
  */
 
-import * as React from 'react';
-import * as styles from '../../themes/app.scss';
+import React from 'react';
+import styles from '../../themes/app.module.scss';
 
 /**
  * User mapping. Equivalent to server side projection.
@@ -50,15 +50,15 @@ export class App extends React.PureComponent<{}, AppState> {
     const request = fetch('/rest/users', {
       method: 'GET',
       headers: {
-        'Content-Type': 'application/json'
-      }
+        'Content-Type': 'application/json',
+      },
     });
 
     request.then((response: Response) => {
       if (response.ok) {
         response.json().then((data: UserProjection[]) =>
           this.setState({
-            users: data
+            users: data,
           })
         );
       } else {

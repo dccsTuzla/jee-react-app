@@ -1,9 +1,9 @@
 /*
- * Copyright (c) 2019 DCCS GmbH. All rights reserved.
- * Implemented 2019 by DCCS GmbH.
+ * Copyright (c) 2022 DCCS GmbH. All rights reserved.
+ * Implemented 2022 by DCCS GmbH.
  */
 
-package application;
+package at.dccs.tuzla.application;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;

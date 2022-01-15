@@ -1,14 +1,14 @@
 /*
- * Copyright (c) 2019 DCCS GmbH. All rights reserved.
- * Implemented 2019 by DCCS GmbH.
+ * Copyright (c) 2022 DCCS GmbH. All rights reserved.
+ * Implemented 2022 by DCCS GmbH.
  */
 
-package mapper;
+package at.dccs.tuzla.mapper;
 
-import entity.UserEntity;
+import at.dccs.tuzla.entity.UserEntity;
+import at.dccs.tuzla.projection.UserProjection;
 import java.util.List;
 import java.util.stream.Collectors;
-import projection.UserProjection;
 
 /**
  * UserMapper

@@ -12,21 +12,22 @@
   <url>http://maven.apache.org</url>
 
   <properties>
-    <tomee.version>7.1.0</tomee.version>
-    <eclipselink.version>2.6.3</eclipselink.version>
-    <javaee-api.version>7.0</javaee-api.version>
-    <jaxrs-jackson.version>2.9.8</jaxrs-jackson.version>
-    <postgresql-jdbc.version>42.2.5</postgresql-jdbc.version>
-    <mysql-jdbc.version>5.1.47</mysql-jdbc.version>
+    <tomee.version>8.0.9</tomee.version>
+    <javaee-api.version>8.0.1</javaee-api.version>
+    <openjpa.version>3.2.0</openjpa.version>
+    <jaxrs-jackson.version>2.13.1</jaxrs-jackson.version>
+
+    <junit4.version>4.13.2</junit4.version>
+    <postgresql-jdbc.version>42.3.1</postgresql-jdbc.version>
 
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <metamodel.source.path>${project.build.directory}/generated-sources/meta-model</metamodel.source.path>
-    <eclipselink.ddl.generation>none</eclipselink.ddl.generation>
 
     <jdbc.groupId>org.postgresql</jdbc.groupId>
     <jdbc.artifactId>postgresql</jdbc.artifactId>
     <jdbc.version>${postgresql-jdbc.version}</jdbc.version>
     <jdbc.driver>org.postgresql.Driver</jdbc.driver>
+    <jdbc.dictionary>postgres(DisableAlterSeqenceIncrementBy=true)</jdbc.dictionary>
 
     <datasource.jndi>dccsJta</datasource.jndi>
 
@@ -43,44 +44,111 @@
       <groupId>javax</groupId>
       <artifactId>javaee-api</artifactId>
     </dependency>
+
     <dependency>
-      <groupId>org.eclipse.persistence</groupId>
-      <artifactId>eclipselink</artifactId>
-      <version>${eclipselink.version}</version>
-      <scope>provided</scope>
+      <groupId>org.apache.openjpa</groupId>
+      <artifactId>openjpa</artifactId>
     </dependency>
+
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-annotations</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>com.fasterxml.jackson.datatype</groupId>
+      <artifactId>jackson-datatype-jdk8</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>com.fasterxml.jackson.datatype</groupId>
+      <artifactId>jackson-datatype-jsr310</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>com.fasterxml.jackson.module</groupId>
+      <artifactId>jackson-module-parameter-names</artifactId>
+    </dependency>
+
     <dependency>
       <groupId>com.fasterxml.jackson.jaxrs</groupId>
       <artifactId>jackson-jaxrs-json-provider</artifactId>
-      <version>${jaxrs-jackson.version}</version>
-      <scope>provided</scope>
     </dependency>
+
     <dependency>
-      <groupId>${jdbc.groupId}</groupId>
-      <artifactId>${jdbc.artifactId}</artifactId>
-      <version>${jdbc.version}</version>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
     </dependency>
   </dependencies>
 
   <dependencyManagement>
     <dependencies>
       <dependency>
-        <groupId>org.eclipse.persistence</groupId>
-        <artifactId>eclipselink</artifactId>
-        <version>${eclipselink.version}</version>
+        <groupId>org.apache.openjpa</groupId>
+        <artifactId>openjpa</artifactId>
+        <version>${openjpa.version}</version>
         <scope>provided</scope>
       </dependency>
-      <dependency>
-        <groupId>org.apache.openejb</groupId>
-        <artifactId>javaee-api</artifactId>
-        <version>${javaee-api.version}</version>
-        <scope>provided</scope>
-      </dependency>
+
       <dependency>
         <groupId>javax</groupId>
         <artifactId>javaee-api</artifactId>
         <version>${javaee-api.version}</version>
         <scope>provided</scope>
+      </dependency>
+
+      <dependency>
+        <groupId>com.fasterxml.jackson.core</groupId>
+        <artifactId>jackson-annotations</artifactId>
+        <version>${jaxrs-jackson.version}</version>
+        <scope>provided</scope>
+      </dependency>
+
+      <dependency>
+        <groupId>com.fasterxml.jackson.datatype</groupId>
+        <artifactId>jackson-datatype-jdk8</artifactId>
+        <version>${jaxrs-jackson.version}</version>
+        <scope>provided</scope>
+      </dependency>
+
+      <dependency>
+        <groupId>com.fasterxml.jackson.datatype</groupId>
+        <artifactId>jackson-datatype-jsr310</artifactId>
+        <version>${jaxrs-jackson.version}</version>
+        <scope>provided</scope>
+      </dependency>
+
+      <dependency>
+        <groupId>com.fasterxml.jackson.core</groupId>
+        <artifactId>jackson-databind</artifactId>
+        <version>${jaxrs-jackson.version}</version>
+        <scope>provided</scope>
+      </dependency>
+
+      <dependency>
+        <groupId>com.fasterxml.jackson.module</groupId>
+        <artifactId>jackson-module-parameter-names</artifactId>
+        <version>${jaxrs-jackson.version}</version>
+        <scope>provided</scope>
+      </dependency>
+
+      <dependency>
+        <groupId>com.fasterxml.jackson.jaxrs</groupId>
+        <artifactId>jackson-jaxrs-json-provider</artifactId>
+        <version>${jaxrs-jackson.version}</version>
+        <scope>provided</scope>
+      </dependency>
+
+      <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>${junit4.version}</version>
+        <scope>test</scope>
       </dependency>
     </dependencies>
   </dependencyManagement>
@@ -90,16 +158,17 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.8.1</version>
+        <version>3.9.0</version>
         <configuration>
-          <source>1.8</source>
-          <target>1.8</target>
+          <source>11</source>
+          <target>11</target>
         </configuration>
       </plugin>
 
       <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-war-plugin</artifactId>
-        <version>3.2.3</version>
+        <version>3.3.2</version>
         <configuration>
           <warSourceExcludes>js/**</warSourceExcludes>
           <warSourceExcludes>tsx/**</warSourceExcludes>
@@ -111,6 +180,8 @@
         <artifactId>tomee-maven-plugin</artifactId>
         <version>${tomee.version}</version>
         <configuration>
+          <args>-Xmx768m -XX:MaxPermSize=384m -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005</args>
+
           <tomeeVersion>${tomee.version}</tomeeVersion>
           <tomeeClassifier>plus</tomeeClassifier>
 
@@ -132,12 +203,6 @@
           <libs>
             <lib>${tomee.jdbc.driver}</lib>
 
-            <!-- see https://code.google.com/p/log4jdbc/ -->
-            <lib>com.googlecode.log4jdbc:log4jdbc:1.2</lib>
-            <lib>org.apache.tomee:openejb-core-eclipselink:${tomee.version}</lib>
-            <lib>org.eclipse.persistence:eclipselink:${eclipselink.version}</lib>
-            <lib>remove:openjpa-</lib>
-
             <lib>com.fasterxml.jackson.core:jackson-core:${jaxrs-jackson.version}</lib>
             <lib>com.fasterxml.jackson.core:jackson-databind:${jaxrs-jackson.version}</lib>
             <lib>com.fasterxml.jackson.core:jackson-annotations:${jaxrs-jackson.version}</lib>
@@ -146,15 +211,15 @@
             <lib>com.fasterxml.jackson.datatype:jackson-datatype-jdk8:${jaxrs-jackson.version}</lib>
             <lib>com.fasterxml.jackson.datatype:jackson-datatype-jsr310:${jaxrs-jackson.version}</lib>
             <lib>com.fasterxml.jackson.module:jackson-module-jaxb-annotations:${jaxrs-jackson.version}</lib>
+            <lib>com.fasterxml.jackson.module:jackson-module-parameter-names:${jaxrs-jackson.version}</lib>
           </libs>
-          <args>-Xmx768m -XX:MaxPermSize=384m -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005</args>
         </configuration>
       </plugin>
 
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>build-helper-maven-plugin</artifactId>
-        <version>3.0.0</version>
+        <version>3.3.0</version>
         <executions>
           <execution>
             <goals>
@@ -173,7 +238,7 @@
       <plugin>
         <groupId>com.coveo</groupId>
         <artifactId>fmt-maven-plugin</artifactId>
-        <version>2.9</version>
+        <version>2.13</version>
         <executions>
           <execution>
             <id>google-format</id>
@@ -186,7 +251,9 @@
       </plugin>
 
       <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-resources-plugin</artifactId>
+        <version>3.2.0</version>
         <executions>
           <execution>
             <id>copyPersistenceXml</id>
@@ -207,6 +274,7 @@
               </resources>
             </configuration>
           </execution>
+
           <execution>
             <id>copyTomeeConfig</id>
             <phase>prepare-package</phase>
@@ -229,7 +297,7 @@
       <plugin>
         <groupId>org.bsc.maven</groupId>
         <artifactId>maven-processor-plugin</artifactId>
-        <version>3.3.3</version>
+        <version>4.5</version>
         <executions>
           <execution>
             <id>process</id>
@@ -248,69 +316,34 @@
         <dependencies>
           <dependency>
             <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-jpamodelgen</artifactId>
-            <version>5.4.3.Final</version>
+              <artifactId>hibernate-jpamodelgen</artifactId>
+            <version>5.6.3.Final</version>
           </dependency>
         </dependencies>
       </plugin>
 
       <plugin>
-        <groupId>au.com.alderaan</groupId>
-        <artifactId>eclipselink-staticweave-maven-plugin</artifactId>
-        <version>1.0.4</version>
-        <executions>
-          <execution>
-            <phase>process-classes</phase>
-            <goals>
-              <goal>weave</goal>
-            </goals>
-            <configuration>
-              <logLevel>ALL</logLevel>
-            </configuration>
-          </execution>
-        </executions>
-        <dependencies>
-          <dependency>
-            <groupId>org.eclipse.persistence</groupId>
-            <artifactId>eclipselink</artifactId>
-            <version>${eclipselink.version}</version>
-          </dependency>
-        </dependencies>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>3.0.0-M5</version>
       </plugin>
-
     </plugins>
   </build>
 
   <profiles>
     <profile>
-      <id>createdb</id>
-      <properties>
-        <eclipselink.ddl.generation>create-or-extend-tables</eclipselink.ddl.generation>
-      </properties>
-    </profile>
-    <profile>
-      <id>mysql</id>
-      <properties>
-        <jdbc.groupId>mysql</jdbc.groupId>
-        <jdbc.artifactId>mysql-connector-java</jdbc.artifactId>
-        <jdbc.version>${mysql-jdbc.version}</jdbc.version>
-        <jdbc.driver>com.mysql.jdbc.Driver</jdbc.driver>
-      </properties>
-    </profile>
-    <profile>
       <id>hsql</id>
       <properties>
         <jdbc.groupId>org.hsqldb</jdbc.groupId>
         <jdbc.artifactId>hsqldb</jdbc.artifactId>
-        <jdbc.version>2.4.0</jdbc.version>
+        <jdbc.version>2.6.1</jdbc.version>
 
         <jdbc.url>jdbc:hsqldb:file:${project.basedir}/hsqldb/db;shutdown=true</jdbc.url>
         <jdbc.userName>sa</jdbc.userName>
         <jdbc.password>sa</jdbc.password>
         <jdbc.driver>org.hsqldb.jdbc.JDBCDriver</jdbc.driver>
-        <eclipselink.ddl.generation>create-or-extend-tables</eclipselink.ddl.generation>
+        <jdbc.dictionary>hsql(SimulateLocking=true)</jdbc.dictionary>
       </properties>
     </profile>
   </profiles>
-
 </project>

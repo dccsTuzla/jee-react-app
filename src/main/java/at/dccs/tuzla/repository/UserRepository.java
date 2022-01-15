@@ -1,11 +1,11 @@
 /*
- * Copyright (c) 2019 DCCS GmbH. All rights reserved.
- * Implemented 2019 by DCCS GmbH.
+ * Copyright (c) 2022 DCCS GmbH. All rights reserved.
+ * Implemented 2022 by DCCS GmbH.
  */
 
-package repository;
+package at.dccs.tuzla.repository;
 
-import entity.UserEntity;
+import at.dccs.tuzla.entity.UserEntity;
 import java.util.List;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -18,12 +18,12 @@ import javax.persistence.criteria.CriteriaQuery;
  * <p>User Database Interface
  */
 public class UserRepository {
-  @Inject private EntityManager entityManager_;
+  @Inject private EntityManager entityManager;
 
   public List<UserEntity> getUsers() {
-    CriteriaBuilder cb = entityManager_.getCriteriaBuilder();
+    CriteriaBuilder cb = entityManager.getCriteriaBuilder();
     CriteriaQuery<UserEntity> query = cb.createQuery(UserEntity.class);
     query.from(UserEntity.class);
-    return entityManager_.createQuery(query).getResultList();
+    return entityManager.createQuery(query).getResultList();
   }
 }

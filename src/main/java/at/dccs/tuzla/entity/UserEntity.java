@@ -1,9 +1,9 @@
 /*
- * Copyright (c) 2019 DCCS GmbH. All rights reserved.
- * Implemented 2019 by DCCS GmbH.
+ * Copyright (c) 2022 DCCS GmbH. All rights reserved.
+ * Implemented 2022 by DCCS GmbH.
  */
 
-package entity;
+package at.dccs.tuzla.entity;
 
 import javax.persistence.*;
 
@@ -13,26 +13,26 @@ import javax.persistence.*;
  * <p>A JPA entity which describes how Users are stored in a database
  */
 @Entity
-@Table(name = "T_USER")
+@Table(name = "T_USER_USER")
 public class UserEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
-  @Column(name = "ID")
+  @Column(name = "USER_ID")
   private Integer id;
 
-  @Column(name = "FIRST_NAME")
+  @Column(name = "USER_FIRST_NAME")
   private String firstName;
 
-  @Column(name = "LAST_NAME")
+  @Column(name = "USER_LAST_NAME")
   private String lastName;
 
-  @Column(name = "DEPARTMENT")
+  @Column(name = "USER_DEPARTMENT")
   private String departmentName;
 
-  @Column(name = "PLANT")
+  @Column(name = "USER_PLANT")
   private String plantName;
 
-  @Column(name = "EMAIL")
+  @Column(name = "USER_EMAIL")
   private String email;
 
   public Integer getId() {

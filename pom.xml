@@ -15,7 +15,7 @@
     <tomee.version>8.0.9</tomee.version>
     <javaee-api.version>8.0.1</javaee-api.version>
     <openjpa.version>3.2.0</openjpa.version>
-    <jaxrs-jackson.version>2.13.1</jaxrs-jackson.version>
+    <jaxrs-jackson.version>2.13.4.1</jaxrs-jackson.version>
 
     <junit4.version>4.13.2</junit4.version>
     <postgresql-jdbc.version>42.3.1</postgresql-jdbc.version>
